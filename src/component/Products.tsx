@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import React from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 interface ProductsProps{
   _id: number,
@@ -13,7 +14,8 @@ interface ProductsProps{
   previousPrice: number,
   isNew: boolean,
   category: string,
-  brand: string
+  brand: string,
+  slug?: string
 }
 
 interface Props{
@@ -21,10 +23,11 @@ interface Props{
 }
 
 export default function Products({ products }: Props) {
+  const router = useRouter();
   return (
     <div className='max-w-screen-xl mx-auto grid grid-cols1 md:grid-cols-2 xl:grid-cols-4 gap-10 py-10'>
       {products.map((item) => (
-        <Link href={"/"} key={item._id}>
+        <div onClick={() => router.push(`/singleProduct/${item._id}`)} key={item._id}>
           <div className='border border-gray-300 rounded-md hover:border-gray-950 duration-300 overflow-hidden p-4'>
             <Image src={item?.image} alt={item.title} width={500} height={500} className='w-full h-80 object-cover' />
             <div>
@@ -36,7 +39,7 @@ export default function Products({ products }: Props) {
               </div>
             </div>
           </div>
-        </Link>
+        </div>
       ))}
     </div>
   )

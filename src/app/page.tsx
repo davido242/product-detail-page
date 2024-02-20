@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Products from "./component/Products";
+import Products from "../component/Products";
 
 const getData = async () => {
   const res = await fetch("https://jsonserver.reactbd.com/phone");
